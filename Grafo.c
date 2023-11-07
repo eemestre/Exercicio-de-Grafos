@@ -74,7 +74,8 @@ void imprime(GRAFO *gr){
 
 void Matriz(GRAFO *gr){ 
     printf("\n\nMatriz de AdjacÃªncia:\n");
-    for (int i = 0; i < gr->vertices; i++) {
+    int i;
+    for (i = 0; i < gr->vertices; i++) {
         for (int j = 0; j < gr->vertices; j++) {
             int adjacencia = 0;
             ADJACENCIA *ad = gr->adj[i].cab;
@@ -92,8 +93,8 @@ void Matriz(GRAFO *gr){
 
 int calculaValorTotalCaminho(GRAFO* gr, int* caminho, int numVertices) {
     int valorTotalCaminho = 0;
-
-    for (int i = 0; i < numVertices - 1; i++) {
+    int i;
+    for (i = 0; i < numVertices - 1; i++) {
         int vi = caminho[i] - 1; // Convertemos o vÃ©️rtice do caminho para um Ã­ndice (subtraindo 1)
         int vf = caminho[i + 1] - 1; // O mesmo para o vÃ©️rtice seguinte
         ADJACENCIA* ad = gr->adj[vi].cab;
@@ -153,40 +154,39 @@ int somaCaminhos(GRAFO *gr, int inicio, int destino) {
 
 
 int main (){
-    GRAFO * grafito = criaGrafo(5);
-    
-    criaAresta(grafito, 0,0,0);
-    criaAresta(grafito, 0,2,0);
-    criaAresta(grafito, 1,2,0);
-    criaAresta(grafito, 1,3,0);
-    criaAresta(grafito, 1,4,0);
-    criaAresta(grafito, 2,3,0);
-    criaAresta(grafito, 3,4,0);
+    GRAFO * graf = criaGrafo(5);
+    criaAresta(graf, 0,0,0);
+    criaAresta(graf, 0,2,0);
+    criaAresta(graf, 1,2,0);
+    criaAresta(graf, 1,3,0);
+    criaAresta(graf, 1,4,0);
+    criaAresta(graf, 2,3,0);
+    criaAresta(graf, 3,4,0);
     
     printf("\nGrafo em lista de adjacÃªncia:\n");
-    imprime(grafito);
+    imprime(graf);
     
-    Matriz(grafito);
+    Matriz(graf);
     
     printf("\n");
     for(int l=0; l<25;l++) if(l<24) printf("-"); else printf("\n");
     
-    GRAFO *grafoOrientado = criaGrafo(5);
+    GRAFO *grafOrient = criaGrafo(5);
     
-    criaAresta(grafoOrientado, 0, 0, 2); 
-    criaAresta(grafoOrientado, 0, 2, 7);
-    criaAresta(grafoOrientado, 2, 1, 5);
-    criaAresta(grafoOrientado, 2, 3, 10);
-    criaAresta(grafoOrientado, 3, 1, 9);
-    criaAresta(grafoOrientado, 3, 4, 1);
-    criaAresta(grafoOrientado, 4, 1, 12);
+    criaAresta(grafOrient, 0, 0, 4); 
+    criaAresta(grafOrient, 0, 2, 11);
+    criaAresta(grafOrient, 2, 1, 1);
+    criaAresta(grafOrient, 2, 3, 2);
+    criaAresta(grafOrient, 3, 1, 6);
+    criaAresta(grafOrient, 3, 4, 7);
+    criaAresta(grafOrient, 4, 1, 9);
 
     printf("Lista de AdjacÃªncia (Grafo Orientado e Ponderado):\n");
-    imprime(grafoOrientado);
-    Matriz(grafoOrientado);
+    imprime(grafOrient);
+    Matriz(grafOrient);
 
-    imprime(grafoOrientado);
-    printf("\nValor total do caminho: %d ",somaCaminhos(grafoOrientado,0,4));
+    imprime(grafOrient);
+    printf("\nValor total do caminho: %d ",somaCaminhos(grafOrient,0,4));
 
     return 0;
 }
