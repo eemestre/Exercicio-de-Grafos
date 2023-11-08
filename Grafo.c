@@ -154,39 +154,22 @@ int somaCaminhos(GRAFO *gr, int inicio, int destino) {
 
 
 int main (){
-    GRAFO * graf = criaGrafo(5);
-    criaAresta(graf, 0,0,0);
-    criaAresta(graf, 0,2,0);
-    criaAresta(graf, 1,2,0);
-    criaAresta(graf, 1,3,0);
-    criaAresta(graf, 1,4,0);
-    criaAresta(graf, 2,3,0);
-    criaAresta(graf, 3,4,0);
+    GRAFO *graf = criaGrafo(5);
     
-    printf("\nGrafo em lista de adjacÃªncia:\n");
+    criaAresta(graf, 0, 0, 4); 
+    criaAresta(graf, 0, 2, 11);
+    criaAresta(graf, 2, 1, 1);
+    criaAresta(graf, 2, 3, 2);
+    criaAresta(graf, 3, 1, 6);
+    criaAresta(graf, 3, 4, 7);
+    criaAresta(graf, 4, 1, 9);
+
+    printf("Lista de AdjacÃªncia:\n");
     imprime(graf);
-    
     Matriz(graf);
-    
-    printf("\n");
-    for(int l=0; l<25;l++) if(l<24) printf("-"); else printf("\n");
-    
-    GRAFO *grafOrient = criaGrafo(5);
-    
-    criaAresta(grafOrient, 0, 0, 4); 
-    criaAresta(grafOrient, 0, 2, 11);
-    criaAresta(grafOrient, 2, 1, 1);
-    criaAresta(grafOrient, 2, 3, 2);
-    criaAresta(grafOrient, 3, 1, 6);
-    criaAresta(grafOrient, 3, 4, 7);
-    criaAresta(grafOrient, 4, 1, 9);
 
-    printf("Lista de AdjacÃªncia (Grafo Orientado e Ponderado):\n");
-    imprime(grafOrient);
-    Matriz(grafOrient);
-
-    imprime(grafOrient);
-    printf("\nValor total do caminho: %d ",somaCaminhos(grafOrient,0,4));
+    imprime(graf);
+    printf("\nValor total do caminho: %d ",somaCaminhos(graf,0,4));
 
     return 0;
 }
