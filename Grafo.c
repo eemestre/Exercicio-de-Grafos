@@ -121,14 +121,15 @@ int somaCaminhosRecursivo(GRAFO *gr, int inicio, int destino, int *visitados) {
 
 int somaCaminhos(GRAFO *gr, int inicio, int destino) {
     int *visitados = (int *)malloc(gr->vertices * sizeof(int));
-    for (int i = 0; i < gr->vertices; i++) {
+    int i;
+    for (i = 0; i < gr->vertices; i++) {
         visitados[i] = 0;
     }
+    
     int soma = somaCaminhosRecursivo(gr, inicio, destino, visitados);
     free(visitados);
     return soma;
 }
-
 
 int main (){
     GRAFO *graf = criaGrafo(5);
