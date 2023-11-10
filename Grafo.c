@@ -72,7 +72,7 @@ void imprime(GRAFO *gr){
     }
 }
 
-void Matriz(GRAFO *gr){ 
+void matriz(GRAFO *gr){ 
     printf("\n\nMatriz de AdjacÃªncia:\n");
     int i;
     for (i = 0; i < gr->vertices; i++) {
@@ -91,35 +91,9 @@ void Matriz(GRAFO *gr){
     }
 }
 
-int calculaValorTotalCaminho(GRAFO* gr, int* caminho, int numVertices) {
-    int valorTotalCaminho = 0;
-    int i;
-    for (i = 0; i < numVertices - 1; i++) {
-        int vi = caminho[i] - 1; // Convertemos o vÃ©️rtice do caminho para um Ã­ndice (subtraindo 1)
-        int vf = caminho[i + 1] - 1; // O mesmo para o vÃ©️rtice seguinte
-        ADJACENCIA* ad = gr->adj[vi].cab;
-        bool found = false;
-
-        while (ad) {
-            if (ad->vertice == vf) {
-                valorTotalCaminho += ad->peso;
-                found = true;
-                break;
-            }
-            ad = ad->prox;
-        }
-
-        if (!found) {
-            // Se a aresta entre os vÃ©️rtices nÃ£o for encontrada, o caminho Ã©️ invÃ¡lido.
-            return -1;
-        }
-    }
-
-    return valorTotalCaminho;
-}
-
-int somaCaminhosDFS(GRAFO *gr, int inicio, int destino, int *visitados) {
-    if (inicio == destino) {
+int somaCaminhosRecursivo(GRAFO *gr, int inicio, int destino, int *visitados) {
+    if(inicio == destino) {
+        visitados[inicio] = 1;
         return 0;
     }
 
@@ -127,14 +101,17 @@ int somaCaminhosDFS(GRAFO *gr, int inicio, int destino, int *visitados) {
     ADJACENCIA *ad = gr->adj[inicio].cab;
     int somaCaminhos = 0;
 
-    while (ad != NULL) {
+    while(ad != NULL) {
         int proximoVertice = ad->vertice;
         int pesoAresta = ad->peso;
 
-        if (!visitados[proximoVertice]) {
-            somaCaminhos += pesoAresta + somaCaminhosDFS(gr, proximoVertice, destino, visitados);
-        }
+        if(!visitados[proximoVertice]) {
+            int x = somaCaminhosRecursivo(gr, proximoVertice, destino, visitados);
 
+            if(visitados[proximoVertice] == 1 || x > 0) {
+                somaCaminhos += pesoAresta + x;
+            }
+        }
         ad = ad->prox;
     }
 
@@ -147,7 +124,7 @@ int somaCaminhos(GRAFO *gr, int inicio, int destino) {
     for (int i = 0; i < gr->vertices; i++) {
         visitados[i] = 0;
     }
-    int soma = somaCaminhosDFS(gr, inicio, destino, visitados);
+    int soma = somaCaminhosRecursivo(gr, inicio, destino, visitados);
     free(visitados);
     return soma;
 }
@@ -166,7 +143,7 @@ int main (){
 
     printf("Lista de AdjacÃªncia:\n");
     imprime(graf);
-    Matriz(graf);
+    matriz(graf);
 
     imprime(graf);
     printf("\nValor total do caminho: %d ",somaCaminhos(graf,0,4));
