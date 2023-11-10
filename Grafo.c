@@ -46,7 +46,7 @@ ADJACENCIA *criadAdj(int v, int peso){
 bool criaAresta(GRAFO *gr, int vi, int vf, TIPOPESO p){
     if(!gr) return(false);
     if((vf<0)||(vf>=gr->vertices))return(false);
-    if((vi<0)||(vf>=gr->vertices))return(false);
+    if((vi<0)||(vi>=gr->vertices))return(false);
     
     ADJACENCIA *novo = criadAdj(vf,p);
     
